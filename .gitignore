@@ -1,2 +1,4 @@
 /vendor/
 conk
+/bin/*
+!/bin/.gitkeep
