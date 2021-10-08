@@ -29,7 +29,7 @@ func main() {
 	flag.BoolVar(&shouldShowVersion, "version", false, "show version info")
 
 	flag.Usage = func() {
-		_, _ = fmt.Fprintf(os.Stderr, `A command-line tool that triggers command when the input (doesn't) comes from STDIN.
+		_, _ = fmt.Fprintf(os.Stderr, `A command-line tool that triggers command when the input (doesn't) comes from STDIN in an interval.
 If the input comes from STDIN, it fires "--on-notified-cmd" command. Elsewise, it executes "--on-not-notified-cmd".
 
 Usage of %s:

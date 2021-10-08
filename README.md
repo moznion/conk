@@ -1,12 +1,12 @@
 # conk
 
-A command-line tool that triggers command when the input (doesn't) comes from STDIN.
+A command-line tool that triggers command when the input (doesn't) comes from STDIN in an interval.
 
 ## Usage
 
 ```
 $ conk -h
-A command-line tool that triggers command when the input (doesn't) comes from STDIN.
+A command-line tool that triggers command when the input (doesn't) comes from STDIN in an interval.
 If the input comes from STDIN, it fires "--on-notified-cmd" command. Elsewise, it executes "--on-not-notified-cmd".
 
 Usage of ./conk:
