@@ -59,9 +59,11 @@ func makeCommandRunner(commands []string, dryRun bool) func() {
 		cmd := exec.Command(commands[0], commands[1:]...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
-		err := cmd.Start() // don't wait the command finish
-		if err != nil {
-			log.Print(err)
-		}
+		go func() { // don't wait the command finish
+			err := cmd.Run()
+			if err != nil {
+				log.Print(err)
+			}
+		}()
 	}
 }
