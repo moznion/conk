@@ -48,7 +48,7 @@ func Run(intervalDuration time.Duration, onNotifiedCommand []string, onNotNotifi
 	}()
 
 	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Split(bufio.ScanBytes)
+	scanner.Split(bufio.ScanLines)
 	for scanner.Scan() {
 		select {
 		case notifyCh <- struct{}{}:
