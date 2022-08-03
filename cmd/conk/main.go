@@ -20,6 +20,8 @@ func main() {
 	var onTickedCommand string
 	var dryRun bool
 	var shouldShowVersion bool
+	var stdinPlaceholder string
+	var stdinDistinct bool
 
 	flag.Uint64Var(&intervalDurationSec, "interval-sec", 0, "[mandatory] interval duration seconds to check the bytes that come from stdin.")
 	flag.StringVar(&onNotifiedCommand, "on-notified-cmd", "[]", "[semi-mandatory] command that runs on notified (i.e. when bytes come from stdin in an interval). this must be JSON string array. it requires this value and/or \"--on-not-notified-cmd\"")
@@ -27,6 +29,8 @@ func main() {
 	flag.StringVar(&onTickedCommand, "on-ticked-cmd", "[]", "command that runs every interval. this must be JSON string array.")
 	flag.BoolVar(&dryRun, "dry-run", false, "dry-run mode. if this value is true, it notifies the command was triggered, instead of executing commands.")
 	flag.BoolVar(&shouldShowVersion, "version", false, "show version info")
+	flag.StringVar(&stdinPlaceholder, "stdin-placeholder", "", "placeholder name that can be used in `on-notified-cmd` to give the command the arguments that come from STDIN.")
+	flag.BoolVar(&stdinDistinct, "stdin-distinct", false, "if this value is true, it makes the arguments for `on-notified-cmd` that come from STDIN distinct (i.e. makes them unique). see also: -stdin-placeholder")
 
 	flag.Usage = func() {
 		_, _ = fmt.Fprintf(os.Stderr, `A command-line tool that triggers command when the input (doesn't) comes from STDIN in an interval.
@@ -77,7 +81,7 @@ Options
 		log.Fatal(err)
 	}
 
-	err = conk.Run(time.Duration(intervalDurationSec)*time.Second, onNotifiedCmd, onNotNotifiedCmd, onTickedCmd, dryRun)
+	err = conk.Run(time.Duration(intervalDurationSec)*time.Second, onNotifiedCmd, onNotNotifiedCmd, onTickedCmd, dryRun, stdinPlaceholder, stdinDistinct)
 	if err != nil {
 		log.Fatal(err)
 	}
